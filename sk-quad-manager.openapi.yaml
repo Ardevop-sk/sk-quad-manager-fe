@@ -1,0 +1,442 @@
+openapi: "3.0.0"
+info:
+  version: 1.0.0
+  title: Manager for sk-QUAD corpus
+  description: Simple CRUD application for managing sk-QUAD corpus
+  contact:
+    name: Filip Bednárik
+    email: info@ardevop.sk
+    url: https://ardevop.sk
+  license:
+    name: MIT
+    url: https://opensource.org/licenses/MIT
+servers:
+  - url: https://sk-quad.ardevop.sk
+paths:
+  /corpus:
+    get:
+      summary: List all corpus
+      operationId: listCorpus
+      tags:
+        - corpus
+      responses:
+        '200':
+          description: A paged array of corpus
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Corpus"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create new corpus
+      operationId: createCorpus
+      tags:
+        - corpus
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CorpusBase'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Corpus"
+  /corpus/import:
+    post:
+      summary: Import corpus from json file
+      operationId: importCorpus
+      tags:
+        - corpus
+      requestBody:
+        description: JSON object of whole QUAD corpus
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Corpus'
+      responses:
+        '200':
+          description: Success
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+  /corpus/{corpusId}:
+    get:
+      summary: Get corpus by Id
+      operationId: getCorpus
+      tags:
+        - corpus
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Corpus"
+      parameters:
+        - name: corpusId
+          in: path
+          required: true
+          description: The id of the corpus to retrieve
+          schema:
+            type: string
+
+  /corpus/{corpusId}/dataset:
+    get:
+      summary: List all corpus dataset
+      operationId: listDatasets
+      tags:
+        - dataset
+      parameters:
+        - name: corpusId
+          in: path
+          required: true
+          description: The id of the corpus
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paged array of corpus datasets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dataset"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Create a corpus dataset
+      operationId: createCorpusDataset
+      tags:
+        - dataset
+      parameters:
+        - name: corpusId
+          in: path
+          required: true
+          description: The id of the corpus
+          schema:
+            type: string
+      requestBody:
+        description: Desc
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DatasetBase'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dataset"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /dataset/{datasetId}:
+    get:
+      summary: Info for a specific dataset
+      operationId: getDataset
+      tags:
+        - dataset
+      parameters:
+        - name: datasetId
+          in: path
+          required: true
+          description: The id of the corpus dataset to retrieve
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Expected response to a valid request
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Dataset"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /dataset/{datasetId}/paragraph:
+    post:
+      summary: Create a paragraph
+      operationId: createParagraph
+      tags:
+        - dataset
+      parameters:
+        - name: datasetId
+          in: path
+          required: true
+          description: The id of the dataset
+          schema:
+            type: string
+      requestBody:
+        description: Desc
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ParagraphBase'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Paragraph"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /paragraph/{paragraphId}/question:
+    post:
+      summary: Create a question
+      operationId: createQuestion
+      tags:
+        - dataset
+      parameters:
+        - name: paragraphId
+          in: path
+          required: true
+          description: The id of the paragraph
+          schema:
+            type: string
+      requestBody:
+        description: Desc
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/QuestionBase'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Question"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /question/{questionId}/answer:
+    post:
+      summary: Create an answer
+      operationId: createAnswer
+      tags:
+        - dataset
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          description: The id of the question
+          schema:
+            type: string
+      requestBody:
+        description: Desc
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Answer"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /question/{questionId}/plausibleAnswer:
+    post:
+      summary: Create an plausible answer
+      operationId: createPlausibleAnswer
+      tags:
+        - dataset
+      parameters:
+        - name: questionId
+          in: path
+          required: true
+          description: The id of the question
+          schema:
+            type: string
+      requestBody:
+        description: Desc
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Answer'
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Answer"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+components:
+  schemas:
+    CorpusBase:
+      type: object
+      required:
+        - version
+      properties:
+        version:
+          type: string
+        language:
+          type: string
+          default: 'en'
+    Corpus:
+      allOf:
+        - $ref: '#/components/schemas/CorpusBase'
+        - type: object
+          required:
+            - data
+          properties:
+            id:
+              type: string
+            data:
+              type: array
+              items:
+                $ref: '#/components/schemas/Dataset'
+    DatasetBase:
+      type: object
+      required:
+        - title
+      properties:
+        source:
+          type: string
+        title:
+          type: string
+    Dataset:
+      allOf:
+        - $ref: '#/components/schemas/DatasetBase'
+        - type: object
+          required:
+            - paragraphs
+          properties:
+            id:
+              type: string
+            paragraphs:
+              type: array
+              items:
+                $ref: '#/components/schemas/Paragraph'
+    ParagraphBase:
+      type: object
+      required:
+        - context
+      properties:
+        context:
+          type: string
+    Paragraph:
+      allOf:
+        - $ref: '#/components/schemas/ParagraphBase'
+        - type: object
+          required:
+            - qas
+          properties:
+            id:
+              type: string
+            qas:
+              type: array
+              items:
+                $ref: '#/components/schemas/Question'
+    QuestionBase:
+      type: object
+      required:
+        - question
+        - is_impossible
+      properties:
+        question:
+          type: string
+        is_impossible:
+          type: boolean
+    Question:
+      allOf:
+        - $ref: '#/components/schemas/QuestionBase'
+        - type: object
+          required:
+            - answers
+            - id
+          properties:
+            id:
+              type: string
+            answers:
+              type: array
+              items:
+                $ref: '#/components/schemas/Answer'
+            plaussible_answers:
+              type: array
+              items:
+                $ref: '#/components/schemas/Answer'
+    Answer:
+      type: object
+      required:
+        - text
+        - answer_start
+      properties:
+        author:
+          type: string
+        text:
+          type: string
+        answer_start:
+          type: integer
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          format: int32
+        message:
+          type: string
