@@ -1,0 +1,19 @@
+<h2>List of paragraphs in dataset {{datasetId}}</h2>
+<p-dataView [value]="paragraphs">
+  <ng-template let-paragraph pTemplate="listItem">
+    <div>
+      <div>
+        <div class="ui-g">
+          <div class="ui-g-12">Id: <b>{{paragraph.id}}</b></div>
+          <div class="ui-g-12">Context: <b>{{paragraph.context}}</b></div>
+        </div>
+      </div>
+      <button pButton type="button" label="Add question" (click)="addQuestion($event, paragraph)"></button>
+      <button pButton type="button" label="List questions" (click)="listQuestions($event, paragraph)"></button>
+      <button pButton type="button" class="ui-button-danger" icon="pi pi-times"
+              (click)="deleteParagraph($event, paragraph)"></button>
+    </div>
+  </ng-template>
+</p-dataView>
+<br/>
+<p-button label="Add new paragraph"></p-button>

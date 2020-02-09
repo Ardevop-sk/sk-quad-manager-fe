@@ -124,7 +124,9 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Dataset"
+                type: array
+                items:
+                  $ref: "#/components/schemas/Dataset"
         default:
           description: unexpected error
           content:
@@ -191,6 +193,38 @@ paths:
                 $ref: "#/components/schemas/Error"
 
   /dataset/{datasetId}/paragraph:
+    get:
+      summary: List all paragraphs in dataset
+      operationId: listParagraphs
+      tags:
+        - dataset
+      parameters:
+        - name: datasetId
+          in: path
+          required: true
+          description: The id of the dataset
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A paged array of paragraphs in datasets
+          headers:
+            x-next:
+              description: A link to the next page of responses
+              schema:
+                type: string
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Paragraph"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
     post:
       summary: Create a paragraph
       operationId: createParagraph

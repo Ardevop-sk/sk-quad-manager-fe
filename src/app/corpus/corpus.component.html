@@ -1,0 +1,39 @@
+<h2>List of corpus</h2>
+<p-dataView [value]="corpus">
+  <ng-template let-oneCorpus pTemplate="listItem">
+    <div>
+      <div>
+        <div class="ui-g">
+          <div class="ui-g-12">Id: <b>{{oneCorpus.id}}</b></div>
+          <div class="ui-g-12">Version: <b>{{oneCorpus.version}}</b></div>
+          <div class="ui-g-12">Language: <b>{{oneCorpus.language}}</b></div>
+        </div>
+      </div>
+      <button pButton type="button" icon="pi pi-list" [routerLink]="['/corpus/' + oneCorpus.id]"></button>
+      <button pButton type="button" class="ui-button-danger" icon="pi pi-times"
+              (click)="deleteCorpus($event, oneCorpus)"></button>
+    </div>
+  </ng-template>
+</p-dataView>
+<br/>
+<p-panel [toggleable]="true">
+  <p-header>
+    Add new corpus
+  </p-header>
+  <div class="ui-g">
+  <span class="ui-float-label">
+    <input id="corpus-version" type="text" size="30" pInputText>
+    <label for="corpus-version">Version</label>
+  </span>
+  </div>
+  <div class="ui-g">
+  <span class="ui-float-label">
+    <input id="corpus-language" type="text" size="30" pInputText>
+    <label for="corpus-language">Language</label>
+  </span>
+  </div>
+  <p-footer>
+    <button pButton class="ui-button-success" label="Save"></button>
+  </p-footer>
+</p-panel>
+

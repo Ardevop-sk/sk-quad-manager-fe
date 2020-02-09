@@ -45,7 +45,7 @@ export class DatasetService extends BaseService {
      */
     corpusId: string;
 
-  }): Observable<StrictHttpResponse<Dataset>> {
+  }): Observable<StrictHttpResponse<Array<Dataset>>> {
 
     const rb = new RequestBuilder(this.rootUrl, DatasetService.ListDatasetsPath, 'get');
     if (params) {
@@ -59,7 +59,7 @@ export class DatasetService extends BaseService {
     })).pipe(
       filter((r: any) => r instanceof HttpResponse),
       map((r: HttpResponse<any>) => {
-        return r as StrictHttpResponse<Dataset>;
+        return r as StrictHttpResponse<Array<Dataset>>;
       })
     );
   }
@@ -77,10 +77,10 @@ export class DatasetService extends BaseService {
      */
     corpusId: string;
 
-  }): Observable<Dataset> {
+  }): Observable<Array<Dataset>> {
 
     return this.listDatasets$Response(params).pipe(
-      map((r: StrictHttpResponse<Dataset>) => r.body as Dataset)
+      map((r: StrictHttpResponse<Array<Dataset>>) => r.body as Array<Dataset>)
     );
   }
 
@@ -206,6 +206,63 @@ export class DatasetService extends BaseService {
 
     return this.getDataset$Response(params).pipe(
       map((r: StrictHttpResponse<Dataset>) => r.body as Dataset)
+    );
+  }
+
+  /**
+   * Path part for operation listParagraphs
+   */
+  static readonly ListParagraphsPath = '/dataset/{datasetId}/paragraph';
+
+  /**
+   * This method provides access to the full `HttpResponse`, allowing access to response headers.
+   * To access only the response body, use `listParagraphs()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listParagraphs$Response(params: {
+
+    /**
+     * The id of the dataset
+     */
+    datasetId: string;
+
+  }): Observable<StrictHttpResponse<Array<Paragraph>>> {
+
+    const rb = new RequestBuilder(this.rootUrl, DatasetService.ListParagraphsPath, 'get');
+    if (params) {
+
+      rb.path('datasetId', params.datasetId);
+
+    }
+    return this.http.request(rb.build({
+      responseType: 'json',
+      accept: 'application/json'
+    })).pipe(
+      filter((r: any) => r instanceof HttpResponse),
+      map((r: HttpResponse<any>) => {
+        return r as StrictHttpResponse<Array<Paragraph>>;
+      })
+    );
+  }
+
+  /**
+   * This method provides access to only to the response body.
+   * To access the full response (for headers, for example), `listParagraphs$Response()` instead.
+   *
+   * This method doesn't expect any request body.
+   */
+  listParagraphs(params: {
+
+    /**
+     * The id of the dataset
+     */
+    datasetId: string;
+
+  }): Observable<Array<Paragraph>> {
+
+    return this.listParagraphs$Response(params).pipe(
+      map((r: StrictHttpResponse<Array<Paragraph>>) => r.body as Array<Paragraph>)
     );
   }
 

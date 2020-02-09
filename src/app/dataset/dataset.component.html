@@ -1,0 +1,19 @@
+<h2>List of datasets in corpus {{corpusId}}</h2>
+<p-dataView [value]="datasets">
+  <ng-template let-dataset pTemplate="listItem">
+    <div>
+      <div>
+        <div class="ui-g">
+          <div class="ui-g-12">Id: <b>{{dataset.id}}</b></div>
+          <div class="ui-g-12">Source: <b>{{dataset.source}}</b></div>
+          <div class="ui-g-12">Title: <b>{{dataset.title}}</b></div>
+        </div>
+      </div>
+      <button pButton type="button" icon="pi pi-list" [routerLink]="['/dataset/'+dataset.id+'/paragraph']"></button>
+      <button pButton type="button" class="ui-button-danger" icon="pi pi-times"
+              (click)="deleteDataset($event, dataset)"></button>
+    </div>
+  </ng-template>
+</p-dataView>
+<br/>
+<p-button label="Add new dataset"></p-button>
