@@ -1,6 +1,5 @@
 /* tslint:disable */
-export interface Answer {
-  answer_start: number;
-  author?: string;
-  text: string;
+import { AnswerBase } from './answer-base';
+export interface Answer extends AnswerBase {
+  id: string;
 }

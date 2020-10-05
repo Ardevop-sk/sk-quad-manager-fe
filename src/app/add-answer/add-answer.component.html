@@ -1,0 +1,25 @@
+<mat-card>
+  <mat-card-title>
+    New Answer
+  </mat-card-title>
+  <form #answerForm="ngForm">
+    <mat-form-field>
+      <mat-label>Text</mat-label>
+      <textarea matInput [(ngModel)]="answer.text" id="answer-text" name="text"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Author</mat-label>
+      <input matInput [(ngModel)]="answer.author" id="answer-author" type="text" size="30" name="author">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Answer Start</mat-label>
+      <input matInput [(ngModel)]="answer.answer_start" id="answer-answer_start" type="text" size="30" name="answer_start">
+    </mat-form-field>
+  </form>
+  <mat-card-footer>
+    <button mat-raised-button color="primary" (click)="saveAnswer()">Save</button>
+  </mat-card-footer>
+
+</mat-card>

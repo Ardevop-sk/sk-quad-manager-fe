@@ -1,39 +1,31 @@
 <h2>List of corpus</h2>
-<p-dataView [value]="corpus">
-  <ng-template let-oneCorpus pTemplate="listItem">
-    <div>
-      <div>
-        <div class="ui-g">
-          <div class="ui-g-12">Id: <b>{{oneCorpus.id}}</b></div>
-          <div class="ui-g-12">Version: <b>{{oneCorpus.version}}</b></div>
-          <div class="ui-g-12">Language: <b>{{oneCorpus.language}}</b></div>
-        </div>
-      </div>
-      <button pButton type="button" icon="pi pi-list" [routerLink]="['/corpus/' + oneCorpus.id]"></button>
-      <button pButton type="button" class="ui-button-danger" icon="pi pi-times"
-              (click)="deleteCorpus($event, oneCorpus)"></button>
-    </div>
-  </ng-template>
-</p-dataView>
-<br/>
-<p-panel [toggleable]="true">
-  <p-header>
-    Add new corpus
-  </p-header>
-  <div class="ui-g">
-  <span class="ui-float-label">
-    <input id="corpus-version" type="text" size="30" pInputText>
-    <label for="corpus-version">Version</label>
-  </span>
-  </div>
-  <div class="ui-g">
-  <span class="ui-float-label">
-    <input id="corpus-language" type="text" size="30" pInputText>
-    <label for="corpus-language">Language</label>
-  </span>
-  </div>
-  <p-footer>
-    <button pButton class="ui-button-success" label="Save"></button>
-  </p-footer>
-</p-panel>
+<table mat-table [dataSource]="corpuses" class="mat-elevation-z8">
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef>Id</th>
+    <td mat-cell *matCellDef="let row">{{row.id}}</td>
+  </ng-container>
 
+  <ng-container matColumnDef="version">
+    <th mat-header-cell *matHeaderCellDef>Version</th>
+    <td mat-cell *matCellDef="let row">{{row.version}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="language">
+    <th mat-header-cell *matHeaderCellDef>Language</th>
+    <td mat-cell *matCellDef="let row">{{row.language}}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="actions">
+    <th mat-header-cell *matHeaderCellDef>Actions</th>
+    <td mat-cell *matCellDef="let row">
+      <button mat-raised-button [routerLink]="['/corpus/' + row.id]">detail</button>
+      <button mat-raised-button color="warn"
+              (click)="deleteCorpus($event, row)">delete</button>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+</table>
+<br/>
+<app-add-corpus (created)="refreshData($event)"></app-add-corpus>

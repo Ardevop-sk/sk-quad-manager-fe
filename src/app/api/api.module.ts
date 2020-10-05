@@ -5,6 +5,8 @@ import { ApiConfiguration, ApiConfigurationParams } from './api-configuration';
 
 import { CorpusService } from './services/corpus.service';
 import { DatasetService } from './services/dataset.service';
+import { ParagraphService } from './services/paragraph.service';
+import { QuestionService } from './services/question.service';
 
 /**
  * Module that provides all services and configuration.
@@ -16,6 +18,8 @@ import { DatasetService } from './services/dataset.service';
   providers: [
     CorpusService,
     DatasetService,
+    ParagraphService,
+    QuestionService,
     ApiConfiguration
   ],
 })

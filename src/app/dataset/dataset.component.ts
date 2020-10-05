@@ -12,16 +12,21 @@ export class DatasetComponent implements OnInit {
 
   datasets: Dataset[];
   corpusId: string;
+  displayedColumns: string[] = ['id', 'source', 'title', 'actions'];
 
   constructor(private activatedRoute: ActivatedRoute, private datasetService: DatasetService) {
   }
 
   ngOnInit(): void {
     this.corpusId = this.activatedRoute.snapshot.paramMap.get('id');
-    this.datasetService.listDatasets({corpusId: this.corpusId}).toPromise().then(datasets => this.datasets = datasets);
+    this.datasetService.listDatasets({corpusId: this.corpusId}).subscribe(datasets => this.datasets = datasets);
   }
 
   deleteDataset($event: MouseEvent, dataset) {
+    this.datasetService.deleteDataset({datasetId: dataset.id}).subscribe(() => this.refreshData($event));
+  }
 
+  refreshData($event): void {
+    this.datasetService.listDatasets({corpusId: this.corpusId}).subscribe(datasets => this.datasets = datasets);
   }
 }

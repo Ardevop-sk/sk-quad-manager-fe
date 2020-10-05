@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-title>
+    New Dataset
+  </mat-card-title>
+  <form #datasetForm="ngForm">
+    <mat-form-field>
+      <mat-label>Source</mat-label>
+      <input matInput [(ngModel)]="dataset.source" id="dataset-source" type="text" size="30" name="source">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Title</mat-label>
+      <input matInput [(ngModel)]="dataset.title" id="dataset-title" type="text" size="30" name="title">
+    </mat-form-field>
+  </form>
+  <mat-card-footer>
+    <button mat-raised-button color="primary" (click)="saveDataset()">Save</button>
+  </mat-card-footer>
+</mat-card>

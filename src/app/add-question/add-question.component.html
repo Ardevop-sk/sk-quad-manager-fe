@@ -1,0 +1,18 @@
+<mat-card>
+  <mat-card-title>
+    New Question
+  </mat-card-title>
+  <form #questionForm="ngForm">
+    <mat-form-field>
+      <mat-label>Question</mat-label>
+      <textarea matInput [(ngModel)]="question.question" id="question-question" name="question"></textarea>
+    </mat-form-field>
+    <br>
+    <mat-checkbox [(ngModel)]="question.is_impossible" id="question-is_impossible" name="is_impossible">Is impossible?
+    </mat-checkbox>
+  </form>
+  <mat-card-footer>
+    <button mat-raised-button color="primary" (click)="saveQuestion()">Save</button>
+  </mat-card-footer>
+
+</mat-card>

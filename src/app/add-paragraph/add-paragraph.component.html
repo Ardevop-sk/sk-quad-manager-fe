@@ -1,0 +1,15 @@
+<mat-card>
+  <mat-card-title>
+    New paragraph
+  </mat-card-title>
+  <form #paragraphForm="ngForm">
+    <mat-form-field>
+      <mat-label>Context</mat-label>
+      <textarea matInput [(ngModel)]="paragraph.context" id="paragraph-context" name="context"></textarea>
+    </mat-form-field>
+  </form>
+  <mat-card-footer>
+    <button mat-raised-button color="primary" (click)="saveParagraph()">Save</button>
+  </mat-card-footer>
+
+</mat-card>

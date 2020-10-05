@@ -1,0 +1,19 @@
+<mat-card>
+  <mat-card-title>
+    New corpus
+  </mat-card-title>
+  <form #corpusForm="ngForm">
+    <mat-form-field>
+      <mat-label>Version</mat-label>
+      <input matInput [(ngModel)]="corpus.version" id="corpus-version" type="text" size="30" name="version">
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Language</mat-label>
+      <input matInput [(ngModel)]="corpus.language" id="corpus-language" type="text" size="30" name="language">
+    </mat-form-field>
+  </form>
+  <mat-card-footer>
+    <button mat-raised-button color="primary" (click)="saveCorpus()">Save</button>
+  </mat-card-footer>
+</mat-card>

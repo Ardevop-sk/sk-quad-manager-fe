@@ -7,4 +7,5 @@ export { Paragraph } from './models/paragraph';
 export { QuestionBase } from './models/question-base';
 export { Question } from './models/question';
 export { Answer } from './models/answer';
+export { AnswerBase } from './models/answer-base';
 export { Error } from './models/error';
