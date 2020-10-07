@@ -1,5 +1,7 @@
 <h2>List of answers in question {{question.id}}</h2>
 <p>{{question.question}}</p>
+<div (mouseup)="showSelectedText($event)">{{question.paragraph_text}}</div>
+<br>
 <table mat-table [dataSource]="question.answers" class="mat-elevation-z8">
   <ng-container matColumnDef="id">
     <th mat-header-cell *matHeaderCellDef>Id</th>
@@ -32,4 +34,4 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
 </table>
 <br/>
-<app-add-answer (created)="refreshData($event)"></app-add-answer>
+<app-add-answer [text]="answerText" [answerStart]="answerStart" (created)="refreshData($event)"></app-add-answer>

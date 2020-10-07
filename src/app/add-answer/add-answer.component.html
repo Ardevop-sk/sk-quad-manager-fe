@@ -4,18 +4,8 @@
   </mat-card-title>
   <form #answerForm="ngForm">
     <mat-form-field>
-      <mat-label>Text</mat-label>
-      <textarea matInput [(ngModel)]="answer.text" id="answer-text" name="text"></textarea>
-    </mat-form-field>
-    <br>
-    <mat-form-field>
       <mat-label>Author</mat-label>
-      <input matInput [(ngModel)]="answer.author" id="answer-author" type="text" size="30" name="author">
-    </mat-form-field>
-    <br>
-    <mat-form-field>
-      <mat-label>Answer Start</mat-label>
-      <input matInput [(ngModel)]="answer.answer_start" id="answer-answer_start" type="text" size="30" name="answer_start">
+      <input matInput [(ngModel)]="author" id="answer-author" type="text" size="30" name="author">
     </mat-form-field>
   </form>
   <mat-card-footer>

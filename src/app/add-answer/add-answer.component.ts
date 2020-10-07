@@ -1,5 +1,5 @@
-import {Component, EventEmitter, OnInit, Output} from '@angular/core';
-import {AnswerBase, QuestionBase} from '../api/models';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {AnswerBase} from '../api/models';
 import {ActivatedRoute} from '@angular/router';
 import {QuestionService} from '../api/services/question.service';
 
@@ -9,23 +9,26 @@ import {QuestionService} from '../api/services/question.service';
   styleUrls: ['./add-answer.component.css']
 })
 export class AddAnswerComponent implements OnInit {
+  @Input()
+  text: string;
+  @Input()
+  answerStart: number;
   @Output()
   created = new EventEmitter<string>();
-  answer: AnswerBase;
+  author = '';
   questionId: string;
 
   constructor(private activatedRoute: ActivatedRoute, private questionService: QuestionService) {
   }
 
   ngOnInit(): void {
-    this.answer = {answer_start: 0, author: '', text: ''};
     this.questionId = this.activatedRoute.snapshot.paramMap.get('id');
   }
 
   saveAnswer() {
     this.questionService.createAnswer({
       questionId: this.questionId,
-      body: this.answer
+      body: {answer_start: this.answerStart, author: this.author, text: this.text}
     }).subscribe(() => this.created.emit('complete'));
   }
 }
